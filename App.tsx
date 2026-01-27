@@ -6,6 +6,7 @@ import Header from './components/Header';
 import ErrorBoundary from './components/ErrorBoundary';
 import Home from './pages/Home';
 import VanPage from './pages/Van';
+import BookingPage from './pages/BookingPage';
 import StoreDetailView from './components/StoreDetailView';
 import { FilterState } from './types';
 import { MOCK_CARS } from './data';
@@ -64,10 +65,11 @@ const App: React.FC = () => {
           <main className="flex-grow">
             <ErrorBoundary>
               <Routes>
-                {/* Standard Route Rendering: Avoid ternary logic inside element prop to prevent #525 */}
+                {/* Standard Route Rendering */}
                 <Route path="/" element={<Home filters={filters} onFilterChange={handleFilterChange} />} />
                 <Route path="/van" element={<VanPage />} />
                 <Route path="/taxi/:slug" element={<StoreDetailRouteWrapper />} />
+                <Route path="/booking/:carId" element={<BookingPage />} />
                 
                 {/* Information/Placeholder Pages */}
                 <Route path="/ad-car" element={
