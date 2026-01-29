@@ -6,7 +6,9 @@ import Header from './components/Header';
 import ErrorBoundary from './components/ErrorBoundary';
 import Home from './pages/Home';
 import VanPage from './pages/Van';
+import NewsPage from './pages/News';
 import BookingPage from './pages/BookingPage';
+import RegisterPage from './pages/Register';
 import StoreDetailView from './components/StoreDetailView';
 import { FilterState } from './types';
 import { MOCK_CARS } from './data';
@@ -44,6 +46,7 @@ const App: React.FC = () => {
     pickupDate: today,
     returnDate: nextWeek,
     shift: '早更',
+    weeklyDays: [], // Initial state for recurring days
     brands: [],
     categories: [],
     features: [],
@@ -68,8 +71,10 @@ const App: React.FC = () => {
                 {/* Standard Route Rendering */}
                 <Route path="/" element={<Home filters={filters} onFilterChange={handleFilterChange} />} />
                 <Route path="/van" element={<VanPage />} />
+                <Route path="/news" element={<NewsPage />} />
                 <Route path="/taxi/:slug" element={<StoreDetailRouteWrapper />} />
                 <Route path="/booking/:carId" element={<BookingPage />} />
+                <Route path="/register" element={<RegisterPage />} />
                 
                 {/* Information/Placeholder Pages */}
                 <Route path="/ad-car" element={
@@ -97,35 +102,24 @@ const App: React.FC = () => {
             </ErrorBoundary>
           </main>
 
+          {/* Fixed: Completed truncated footer and added default export */}
           <footer className="bg-white border-t border-slate-200 pt-20 pb-12">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
                   <div className="md:col-span-2 space-y-6">
                     <Link to="/" className="flex items-baseline group">
-                      <span className="text-3xl font-black text-[#00AEEF] italic tracking-tighter">租的</span>
-                      <span className="text-4xl font-black text-[#00AEEF] lowercase leading-none">e</span>
+                      <span className="text-3xl font-black text-[#00AEEF] italic tracking-tighter select-none">租的</span>
+                      <span className="text-4xl font-black text-[#00AEEF] lowercase leading-none select-none -ml-1">e</span>
                     </Link>
-                    <p className="text-slate-500 font-medium leading-relaxed max-w-sm italic">
-                      為香港司機與車行量身打造的專業透明租賃橋樑。
+                    <p className="text-slate-400 font-bold text-xs mt-4">
+                      香港領先的專業的士租賃平台，提供最透明、最高效率的媒合服務。
                     </p>
                   </div>
-                  <div className="space-y-6">
-                    <h4 className="text-[10px] font-black text-slate-800 uppercase tracking-widest">快速導覽</h4>
-                    <ul className="space-y-4">
-                      <li><Link to="/" className="text-slate-500 font-bold hover:text-sky-500">預約的士</Link></li>
-                      <li><Link to="/van" className="text-slate-500 font-bold hover:text-sky-500">物流貨車</Link></li>
-                      <li><Link to="/erp" className="text-slate-500 font-bold hover:text-sky-500">車行管理</Link></li>
-                      <li><Link to="/contact" className="text-slate-500 font-bold hover:text-sky-500">關於我們</Link></li>
-                    </ul>
-                  </div>
-                  <div className="space-y-6">
-                    <h4 className="text-[10px] font-black text-slate-800 uppercase tracking-widest">客戶服務</h4>
-                    <p className="text-slate-500 font-bold">熱線: +852 2345 6789</p>
-                    <p className="text-slate-500 font-bold">辦公時間: 09:00 - 18:00 (一至五)</p>
-                  </div>
                </div>
-               <div className="pt-12 border-t border-slate-100 text-center">
-                 <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">© 2026 租的e • 專業的士租賃平台 | 版權所有</p>
+               <div className="pt-8 border-t border-slate-100 text-center">
+                 <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.3em]">
+                   © 2025 租的e - Professional Taxi Rental Platform
+                 </p>
                </div>
             </div>
           </footer>

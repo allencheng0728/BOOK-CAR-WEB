@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-HK">
   <head>
@@ -14,25 +13,85 @@
         font-family: 'Inter', sans-serif;
         background-color: #f8fafc;
       }
+      /* Global fix for hidden date inputs to ensure the calendar picker is triggered on click */
+      input[type="date"]::-webkit-calendar-picker-indicator {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+        opacity: 0;
+      }
     </style>
-  <script type="importmap">
-{
-  "imports": {
-    "lucide-react": "https://esm.sh/lucide-react@^0.263.1?external=react",
-    "react-dom/": "https://esm.sh/react-dom@^18.2.0/",
-    "react-dom": "https://esm.sh/react-dom@18.2.0/",
-    "react/": "https://esm.sh/react@^18.2.0/",
-    "react": "https://esm.sh/react@^18.2.0",
-    "react-router-dom": "https://esm.sh/react-router-dom@^6.22.3?external=react,react-dom",
-    "react-helmet-async": "https://esm.sh/react-helmet-async@^1.3.0?external=react,react-dom"
-  }
-}
-</script>
-</head>
+    <script>
+      // Global synchronization for Advertisement Slots
+      window.AD_SLOTS = [
+        {
+          id: 1,
+          dealershipId: 'store-1',
+          dealershipName: '誠信車行 (元朗店)',
+          title: '春季租車大優惠：豐田混能 85 折',
+          summary: '誠信車行元朗旗艦店慶祝春季來臨，全線豐田 Comfort Hybrid 連租 3 天 or 以上即享租金 85 折優惠！數量有限，先到先得。',
+          date: '今日',
+          isFlexible: true
+        },
+        {
+          id: 2,
+          dealershipId: 'store-5',
+          dealershipName: '新界動力 (大埔區)',
+          title: '新店開張：大埔區取車點首月按金減半',
+          summary: '新界動力大埔取車點正式啟用！為回饋司機支持，首月新預約客戶按金即享 50% 減免，助您輕鬆開工。',
+          date: '1天前',
+          isFlexible: false
+        },
+        {
+          id: 3,
+          dealershipId: 'store-3',
+          dealershipName: '桑富貿易 (荃灣)',
+          title: '最新 2024 款電動的士 LTO 全面到貨',
+          summary: '最新款 2024 年份電動的士現已抵達荃灣總店。極速充電、超長續航，體驗綠色出行並節省更多燃氣開支。',
+          date: '2天前',
+          isFlexible: true
+        },
+        {
+          id: 4,
+          dealershipId: 'store-12',
+          dealershipName: '港島電力的',
+          title: '港島區 Tesla 的士租賃推廣計劃',
+          summary: '港島電力的推出高端 Tesla Model 3 租賃方案，專業調度系統助您鎖定中西區彈性租金長途訂單。',
+          date: '3天前',
+          isFlexible: true
+        },
+        {
+          id: 5,
+          dealershipId: 'store-2',
+          dealershipName: '聯樂的士管理 (黃大仙)',
+          title: '彈性租金免按金計劃：立即加入',
+          summary: '聯樂推出業界首創「彈性租金」計劃，具備良好駕駛紀錄之司機可申請免按金租賃 2023 款 Comfort Hybrid。',
+          date: '4天前',
+          isFlexible: true
+        }
+      ];
+    </script>
+    <script type="importmap">
+    {
+      "imports": {
+        "lucide-react": "https://esm.sh/lucide-react@^0.263.1?external=react",
+        "react-dom/": "https://esm.sh/react-dom@^18.2.0/",
+        "react-dom": "https://esm.sh/react-dom@18.2.0/",
+        "react/": "https://esm.sh/react@^18.2.0/",
+        "react": "https://esm.sh/react@^18.2.0",
+        "react-router-dom": "https://esm.sh/react-router-dom@^6.22.3?external=react,react-dom",
+        "react-helmet-async": "https://esm.sh/react-helmet-async@^1.3.0?external=react,react-dom"
+      }
+    }
+    </script>
+  </head>
   <body>
     <div id="root"></div>
-    <!--KEEP_ORIGINAL_START-->
     <script type="module" src="index.tsx"></script>
-    <!--KEEP_ORIGINAL_END-->
   </body>
 </html>

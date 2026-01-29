@@ -1,6 +1,5 @@
-
-import React from 'react';
-import { Users, Calendar, Star, ShieldCheck, Fuel, Wallet, MessageSquare, MapPin, ExternalLink } from 'lucide-react';
+import React, { useMemo } from 'react';
+import { Users, Calendar, ShieldCheck, Fuel, MessageSquare, MapPin, ExternalLink } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { CarRental } from '../types';
 
@@ -19,12 +18,34 @@ const CarCard: React.FC<CarCardProps> = ({ car, onSelect }) => {
 
   const theme = colorMap[car.companyColor];
 
+  // Deterministic license plate to decide "彈性租金" status in the box
+  const licensePlate = useMemo(() => {
+    const seeds: Record<string, string> = {
+      'store-1': 'YL 8888',
+      'store-2': 'ZE 1271',
+      'store-3': 'TX 4492',
+      'store-4': 'SS 1024',
+      'store-5': 'TP 5531',
+      'store-12': 'EV 2024'
+    };
+    return seeds[car.id] || `TX ${car.id?.split('-')[1]?.padStart(4, '0') || '0000'}`;
+  }, [car.id]);
+
+  const isFlexibleCar = useMemo(() => {
+    return licensePlate.startsWith('ZE') || licensePlate.startsWith('TX') || licensePlate.startsWith('EV');
+  }, [licensePlate]);
+
   // Map fuel type from category for display
   const fuelType = car.category === 'HYBRID' ? '混能' : car.category === 'ELECTRIC' ? '新能源' : '石油氣';
 
   const handleBooking = (e: React.MouseEvent) => {
     e.stopPropagation();
     navigate(`/booking/${car.id}`);
+  };
+
+  const handleStoreClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    navigate(`/taxi/${car.id}`);
   };
 
   return (
@@ -43,10 +64,12 @@ const CarCard: React.FC<CarCardProps> = ({ car, onSelect }) => {
           <MapPin className="w-3 h-3 text-white/90" />
           <span className="text-[10px] font-black text-white uppercase tracking-[0.25em]">{car.district}</span>
         </div>
-        {car.isVerifiedStore && (
+        {isFlexibleCar && (
           <div className="flex items-center gap-1 bg-white/20 backdrop-blur-md px-2 py-0.5 rounded-full border border-white/20 relative z-10">
             <ShieldCheck className="w-2.5 h-2.5 text-white" />
-            <span className="text-[8px] font-black text-white tracking-widest uppercase">租的e 認證</span>
+            <span className="text-[8px] font-black text-white tracking-widest uppercase">
+              彈性租金
+            </span>
           </div>
         )}
       </div>
@@ -124,10 +147,11 @@ const CarCard: React.FC<CarCardProps> = ({ car, onSelect }) => {
         </button>
       </div>
 
-      {/* Colored Footer Bar */}
+      {/* Colored Footer Bar - Clickable to Dealership Detail */}
       <div 
-        className="w-full py-2.5 px-6 flex items-center justify-center gap-2 transition-all duration-300 hover:brightness-110 shrink-0"
+        className="w-full py-2.5 px-6 flex items-center justify-center gap-2 transition-all duration-300 hover:brightness-110 shrink-0 cursor-pointer"
         style={{ backgroundColor: theme.primary }}
+        onClick={handleStoreClick}
       >
         <span className="text-[9px] font-black text-white uppercase tracking-[0.3em] truncate max-w-[80%]">
           {car.companyName}

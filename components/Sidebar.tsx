@@ -186,6 +186,17 @@ const Sidebar: React.FC<SidebarProps> = ({ filters, onFilterChange }) => {
                   ))}
                 </div>
               </div>
+              <div>
+                <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-6">其他</h4>
+                <div className="grid grid-cols-2 gap-4">
+                  <button
+                    onClick={() => toggleArrayItem('features', '電子車鑰匙')}
+                    className={`px-6 py-4 rounded-2xl border-2 text-sm font-black transition-all ${filters.features.includes('電子車鑰匙') ? 'bg-[#1A365D] border-[#1A365D] text-white shadow-xl' : 'bg-white border-slate-100 text-slate-500'}`}
+                  >
+                    電子車鑰匙
+                  </button>
+                </div>
+              </div>
             </div>
             <div className="px-10 py-8 border-t border-slate-100 bg-slate-50/50">
               <button 

@@ -10,10 +10,14 @@ interface State {
   error?: Error;
 }
 
+// Fix: Use imported Component class directly to ensure proper type inheritance for 'props' and 'state'
 class ErrorBoundary extends Component<Props, State> {
+  public state: State = {
+    hasError: false
+  };
+
   constructor(props: Props) {
     super(props);
-    this.state = { hasError: false };
   }
 
   public static getDerivedStateFromError(error: Error): State {
@@ -28,6 +32,7 @@ class ErrorBoundary extends Component<Props, State> {
   }
 
   public render() {
+    // Fixed: this.state and this.props are now correctly resolved from the Component base class
     if (this.state.hasError) {
       return (
         <div className="min-h-[60vh] flex items-center justify-center bg-slate-50 p-6 text-center">

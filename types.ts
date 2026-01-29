@@ -41,6 +41,7 @@ export interface FilterState {
   pickupDate: string;
   returnDate: string;
   shift: '早更' | '晚更' | '特更';
+  weeklyDays: string[]; // Support for Mon-Sun recurring filtering
   brands: string[];
   categories: string[];
   features: string[];
